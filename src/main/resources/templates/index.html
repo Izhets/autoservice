@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Главная</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/style.css}"/>
+</head>
+<body>
+
+<header th:replace="blocks/menu"></header>
+
+<div class="wrapper">
+
+    <section class="slider_style">
+        <div class="center">
+            <article id="slider">
+                <input checked type="radio" name="slider" id="switch1" style=" opacity: 0; ">
+                <input type="radio" name="slider" id="switch2" style=" opacity: 0; ">
+                <input type="radio" name="slider" id="switch3" style=" opacity: 0; ">
+                <div id="slides">
+                    <div id="overflow">
+                        <div class="image">
+                            <article><img src="./img/slide_1.png"></article>
+                            <article><img src="./img/slide_2.png"></article>
+                            <article><img src="./img/slide_3.png"></article>
+                        </div>
+                    </div>
+                </div>
+                <div id="controls">
+                    <label for="switch1"></label>
+                    <label for="switch2"></label>
+                    <label for="switch3"></label>
+                </div>
+                <div id="active">
+                    <label for="switch1"></label>
+                    <label for="switch2"></label>
+                    <label for="switch3"></label>
+
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="center">
+            <div class="content_title"><h1>Добро пожаловать на сайт фотосалона!</h1></div>
+        </div>
+        <div class="center">
+            <p>Мы предлагаем нашим клиентам широкий сервис услуг фото.
+                Мы гордимся своей деятельностью, ведь наш
+                коллектив позволяет сохранить тысячам людей самые приятные
+                моменты жизни. Мы расширили рамки,
+                и теперь вы можете заказать работу художника и он сделает вам портрет по вашему фото.
+                Мы всегда выполняем свою работу качественно, потому
+                что понимаем, какую ценность несут фотографии.
+                Кроме того, на нашем сайте есть галерея, где вы можете ознакомиться с демо-материалами.
+                Каждую из новых функций сайта, услуг, товаров мы тестируем на себе и стараемся оставить
+                всех наших клиентов довольными. </p>
+        </div>
+    </section>
+
+    <section class="auth">
+        <div class="center">
+            <div class="content_title" style="text-align: left"><h1>Авторизация</h1></div>
+            <div class="form_container">
+                <form th:action="@{/login}" method="post">
+                    <div><label> User Name : <input type="text" name="username"/> </label></div>
+                    <div><label> Password: <input type="password" name="password"/> </label></div>
+                    <div><input type="submit" value="Sign In"/></div>
+                </form>
+                <p style="margin-top: 10px">
+                    У вас ещё нет аккаунта? - <a href="./registration.php">Зарегистрируйтесь</a>!
+                </p>
+            </div>
+        </div>
+</section>
+
+    <div th:insert="blocks/footer"></div>
+
+</div>
+</body>
+</html>
