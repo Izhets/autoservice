@@ -9,12 +9,9 @@ import lombok.*;
 public class UserDto {
 
     @NonNull
-    private Long userID;
-
+    private Long id;
     private String login;
-
     private String password;
-
     private String email;
 
 }

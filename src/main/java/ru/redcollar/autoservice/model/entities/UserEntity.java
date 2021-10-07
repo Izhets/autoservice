@@ -1,27 +1,26 @@
 package ru.redcollar.autoservice.model.entities;
 
 import lombok.*;
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.MappedCollection;
+import org.springframework.data.relational.core.mapping.Table;
 
-@Entity
-@Table(name = "userList")
-@Setter
-@Getter
+@Table("user")
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
 public class UserEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long userID;
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
-    @JoinColumn(name = "employee_id", nullable = false)
-    private EmployeeEntity employee;
-
+    private Long id;
     private String login;
     private String password;
     private String email;
 
+
+    @MappedCollection(idColumn = "user_id")
+    private EmployeeEntity employee;
 }

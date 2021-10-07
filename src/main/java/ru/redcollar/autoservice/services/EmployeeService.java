@@ -1,4 +1,4 @@
-package ru.redcollar.autoservice.api.services;
+package ru.redcollar.autoservice.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -6,7 +6,7 @@ import ru.redcollar.autoservice.exceptions.LockedAgeException;
 import ru.redcollar.autoservice.model.dto.EmployeeDto;
 import ru.redcollar.autoservice.model.entities.EmployeeEntity;
 import ru.redcollar.autoservice.model.factories.EmployeeDtoFactory;
-import ru.redcollar.autoservice.model.repositories.EmployeeRepository;
+import ru.redcollar.autoservice.repositories.EmployeeRepository;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -14,7 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import static ru.redcollar.autoservice.api.services.CheckService.checkAge;
+import static ru.redcollar.autoservice.services.CheckService.checkAge;
 
 @Service
 public class EmployeeService {
@@ -29,7 +29,7 @@ public class EmployeeService {
     }
 
     public List<EmployeeEntity> getAllEmployees() {
-        return employeeRepository.findAll();
+        return (List<EmployeeEntity>) employeeRepository.findAll();
     }
 
     private final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
@@ -53,31 +53,17 @@ public class EmployeeService {
     }
 
 
-    public EmployeeDto createEmployee(String surname, String name, String patronymic,
-                                      String dateOfBirth, Long phoneNumber,
-                                      String position, Long salary, Long experience,
-                                      String workingSchedule, Long seniorityAllowance) throws LockedAgeException {
-
-       checkAge(parseDate(dateOfBirth));
+    public EmployeeDto createEmployee(EmployeeDto e) throws LockedAgeException {
 
         EmployeeEntity entity = EmployeeEntity.builder()
-                .surname(surname)
-                .name(name)
-                .patronymic(patronymic)
-                .dateOfBirth(parseDate(dateOfBirth))
-                .phoneNumber(phoneNumber)
-                .position(position)
-                .salary(salary)
-                .experience(experience)
-                .workingSchedule(workingSchedule)
-                .seniorityAllowance(seniorityAllowance)
+                .surname(e.getSurname())
                 .build();
 
-        EmployeeEntity employee = employeeRepository.save(
-                entity
-        );
+        return employeeDtoFactory.makeEmployeeDto(employeeRepository.save(entity));
+    }
 
-        return employeeDtoFactory.makeEmployeeDto(employee);
+    public EmployeeEntity saveEmployee(EmployeeEntity entity){
+        return employeeRepository.save(entity);
     }
 
 }

@@ -1,4 +1,4 @@
-package ru.redcollar.autoservice.api.services;
+package ru.redcollar.autoservice.services;
 
 import ru.redcollar.autoservice.exceptions.LockedAgeException;
 

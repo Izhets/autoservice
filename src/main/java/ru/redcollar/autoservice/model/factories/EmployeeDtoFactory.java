@@ -10,17 +10,8 @@ public class EmployeeDtoFactory {
     public EmployeeDto makeEmployeeDto(EmployeeEntity entity){
 
         return EmployeeDto.builder()
-                .employeeID(entity.getEmployeeID())
+                .id(entity.getId())
                 .surname(entity.getSurname())
-                .name(entity.getName())
-                .patronymic(entity.getPatronymic())
-                .dateOfBirth(entity.getDateOfBirth())
-                .phoneNumber(entity.getPhoneNumber())
-                .position(entity.getPosition())
-                .salary(entity.getSalary())
-                .experience(entity.getExperience())
-                .workingSchedule(entity.getWorkingSchedule())
-                .seniorityAllowance(entity.getSeniorityAllowance())
                 .build();
     }
 

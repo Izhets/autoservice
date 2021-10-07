@@ -10,7 +10,7 @@ public class UserDtoFactory {
     public UserDto makeUserDto(UserEntity entity) {
 
         return UserDto.builder()
-                .userID(entity.getUserID())
+                .id(entity.getId())
                 .login(entity.getLogin())
                 .password(entity.getPassword())
                 .email(entity.getEmail())
