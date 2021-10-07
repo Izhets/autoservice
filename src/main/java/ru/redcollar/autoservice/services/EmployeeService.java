@@ -4,9 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.redcollar.autoservice.exceptions.LockedAgeException;
 import ru.redcollar.autoservice.model.dto.EmployeeDto;
+import ru.redcollar.autoservice.model.dto.UserDto;
 import ru.redcollar.autoservice.model.entities.EmployeeEntity;
+import ru.redcollar.autoservice.model.entities.UserEntity;
 import ru.redcollar.autoservice.model.factories.EmployeeDtoFactory;
+import ru.redcollar.autoservice.model.factories.UserDtoFactory;
 import ru.redcollar.autoservice.repositories.EmployeeRepository;
+import ru.redcollar.autoservice.repositories.UserRepository;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -14,18 +18,20 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import static ru.redcollar.autoservice.services.CheckService.checkAge;
-
 @Service
 public class EmployeeService {
 
-    private EmployeeDtoFactory employeeDtoFactory;
-    private EmployeeRepository employeeRepository;
+    private final EmployeeDtoFactory employeeDtoFactory;
+    private final EmployeeRepository employeeRepository;
+    private final UserRepository userRepository;
+    private final UserDtoFactory userDtoFactory;
 
     @Autowired
-    public EmployeeService(EmployeeDtoFactory employeeDtoFactory, EmployeeRepository employeeRepository) {
+    public EmployeeService(EmployeeDtoFactory employeeDtoFactory, EmployeeRepository employeeRepository, UserRepository userRepository, UserDtoFactory userDtoFactory) {
         this.employeeDtoFactory = employeeDtoFactory;
         this.employeeRepository = employeeRepository;
+        this.userRepository = userRepository;
+        this.userDtoFactory = userDtoFactory;
     }
 
     public List<EmployeeEntity> getAllEmployees() {
@@ -52,18 +58,27 @@ public class EmployeeService {
         }
     }
 
+    public EmployeeDto createEmployee(UserDto userDto, EmployeeDto employeeDto) throws LockedAgeException {
 
-    public EmployeeDto createEmployee(EmployeeDto e) throws LockedAgeException {
+        UserEntity user =  userRepository.save(
+                UserEntity.builder()
+                .login(userDto.getLogin())
+                .password(userDto.getPassword())
+                .email(userDto.getEmail())
+                .build()
+        );
 
-        EmployeeEntity entity = EmployeeEntity.builder()
-                .surname(e.getSurname())
-                .build();
+        userDtoFactory.makeUserDto(user);
 
-        return employeeDtoFactory.makeEmployeeDto(employeeRepository.save(entity));
-    }
+        EmployeeEntity employee = employeeRepository.save(
+                EmployeeEntity.builder()
+                .user_id(user.getId())
+                .build()
+                );
 
-    public EmployeeEntity saveEmployee(EmployeeEntity entity){
-        return employeeRepository.save(entity);
+      employee.setSurname(employeeDto.getSurname());
+
+        return employeeDtoFactory.makeEmployeeDto(employee);
     }
 
 }
