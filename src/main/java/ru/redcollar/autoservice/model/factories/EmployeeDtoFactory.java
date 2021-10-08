@@ -12,6 +12,14 @@ public class EmployeeDtoFactory {
         return EmployeeDto.builder()
                 .id(entity.getId())
                 .surname(entity.getSurname())
+                .userID(entity.getUserID())
+                .build();
+    }
+
+    public EmployeeEntity makeEmployee(EmployeeDto employee){
+        return EmployeeEntity.builder()
+                .surname(employee.getSurname())
+                .userID(employee.getUserID())
                 .build();
     }
 

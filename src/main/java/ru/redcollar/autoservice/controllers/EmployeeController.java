@@ -24,9 +24,14 @@ public class EmployeeController {
         return (List<EmployeeEntity>) employeeRepository.findAll();
     }
 
+//    @PostMapping("/users/employee")
+//    public EmployeeDto addEmployee(@RequestParam String login, String password, String email, String surname) {
+//        return employeeService.createEmployee(login, password, email, surname);
+//    }
+
     @PostMapping("/users/employee")
-    public EmployeeDto addEmployee(@RequestBody UserDto user, EmployeeDto employee) {
-        return employeeService.createEmployee(user, employee);
+    public EmployeeDto addEmployee(@RequestPart UserDto userDto, @RequestPart EmployeeDto employeeDto) {
+        return employeeService.createEmployee(userDto, employeeDto);
     }
 
 }

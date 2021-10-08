@@ -4,12 +4,13 @@ import lombok.*;
 
 @Data
 @Builder
-@Getter
-@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class EmployeeDto {
 
+    @NonNull
     private Long id;
     private String surname;
+    private Long userID;
 
 }

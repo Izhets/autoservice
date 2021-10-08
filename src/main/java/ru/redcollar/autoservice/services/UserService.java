@@ -16,16 +16,12 @@ import java.text.SimpleDateFormat;
 public class UserService {
 
     private final UserDtoFactory userDtoFactory;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    //@Autowired
     public UserService(UserDtoFactory userDtoFactory, UserRepository userRepository) {
         this.userDtoFactory = userDtoFactory;
         this.userRepository = userRepository;
     }
-
 
     private final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 

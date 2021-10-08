@@ -26,7 +26,6 @@ public class EmployeeService {
     private final UserRepository userRepository;
     private final UserDtoFactory userDtoFactory;
 
-    @Autowired
     public EmployeeService(EmployeeDtoFactory employeeDtoFactory, EmployeeRepository employeeRepository, UserRepository userRepository, UserDtoFactory userDtoFactory) {
         this.employeeDtoFactory = employeeDtoFactory;
         this.employeeRepository = employeeRepository;
@@ -60,25 +59,24 @@ public class EmployeeService {
 
     public EmployeeDto createEmployee(UserDto userDto, EmployeeDto employeeDto) throws LockedAgeException {
 
-        UserEntity user =  userRepository.save(
+        UserEntity user = userRepository.save(
                 UserEntity.builder()
-                .login(userDto.getLogin())
-                .password(userDto.getPassword())
-                .email(userDto.getEmail())
-                .build()
+                        .login(userDto.getLogin())
+                        .password(userDto.getPassword())
+                        .email(userDto.getEmail())
+                        .build()
         );
 
         userDtoFactory.makeUserDto(user);
 
         EmployeeEntity employee = employeeRepository.save(
                 EmployeeEntity.builder()
-                .user_id(user.getId())
-                .build()
-                );
+                        .userID(user.getId())
+                        .surname(employeeDto.getSurname())
+                        .build()
+        );
 
-      employee.setSurname(employeeDto.getSurname());
-
-        return employeeDtoFactory.makeEmployeeDto(employee);
+        return employeeDtoFactory.makeEmployeeDto(employeeRepository.save(employee));
     }
 
 }
