@@ -11,16 +11,17 @@ public class EmployeeDtoFactory {
 
         return EmployeeDto.builder()
                 .id(entity.getId())
+                .name(entity.getName())
                 .surname(entity.getSurname())
+                .patronymic(entity.getPatronymic())
+                .dateOfBirth(entity.getDateOfBirth())
+                .phoneNumber(entity.getPhoneNumber())
+                .post(entity.getPost())
+                .salary(entity.getSalary())
+                .workExperience(entity.getWorkExperience())
+                .duty(entity.getDuty())
+                .seniorityAllowance(entity.getSeniorityAllowance())
                 .userID(entity.getUserID())
                 .build();
     }
-
-    public EmployeeEntity makeEmployee(EmployeeDto employee){
-        return EmployeeEntity.builder()
-                .surname(employee.getSurname())
-                .userID(employee.getUserID())
-                .build();
-    }
-
 }

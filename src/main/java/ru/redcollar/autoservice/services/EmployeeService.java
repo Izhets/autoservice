@@ -18,6 +18,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import static ru.redcollar.autoservice.services.CheckService.checkAge;
+
 @Service
 public class EmployeeService {
 
@@ -59,6 +61,10 @@ public class EmployeeService {
 
     public EmployeeDto createEmployee(UserDto userDto, EmployeeDto employeeDto) throws LockedAgeException {
 
+        String dateOfBirth = String.valueOf(employeeDto.getDateOfBirth());
+
+        checkAge(parseDate(dateOfBirth));
+
         UserEntity user = userRepository.save(
                 UserEntity.builder()
                         .login(userDto.getLogin())
@@ -72,7 +78,16 @@ public class EmployeeService {
         EmployeeEntity employee = employeeRepository.save(
                 EmployeeEntity.builder()
                         .userID(user.getId())
+                        .name(employeeDto.getName())
                         .surname(employeeDto.getSurname())
+                        .patronymic(employeeDto.getPatronymic())
+                        .dateOfBirth(parseDate(dateOfBirth))
+                        .phoneNumber(employeeDto.getPhoneNumber())
+                        .post(employeeDto.getPost())
+                        .salary(employeeDto.getSalary())
+                        .workExperience(employeeDto.getWorkExperience())
+                        .duty(employeeDto.getDuty())
+                        .seniorityAllowance(employeeDto.getSeniorityAllowance())
                         .build()
         );
 

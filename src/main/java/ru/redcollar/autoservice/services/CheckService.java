@@ -26,9 +26,9 @@ public class CheckService {
         LocalDate firstDate = LocalDate.now();
         LocalDate twoDate = convertToEntityAttribute((java.sql.Date) dateOfBirth);
 
-        long daysBetween = ChronoUnit.DAYS.between(firstDate, twoDate);
+        long daysBetween = ChronoUnit.DAYS.between(twoDate, firstDate);
         System.out.println(daysBetween/365);
-        if (daysBetween > 6){
+        if (daysBetween/365 < 18){
             throw new LockedAgeException("Извините, вам должно быть 18!");
         }
     }
