@@ -20,20 +20,24 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    @GetMapping("/contacts")
-    public List<EmployeeEntity> getAllContacts() {
-        return (List<EmployeeEntity>) employeeRepository.findAll();
+    @GetMapping("/user/employee")
+    public List<EmployeeEntity> getAllEmployee() {
+        return employeeService.getAllEmployees();
     }
 
-//    @PostMapping("/users/employee")
-//    public EmployeeDto addEmployee(@RequestParam String login, String password, String email, String surname) {
-//        return employeeService.createEmployee(login, password, email, surname);
-//    }
-
-    @PostMapping("/users/employee")
-    public EmployeeDto addEmployee(@RequestPart UserDto userDto, @RequestPart EmployeeDto employeeDto) {
-
+    @PostMapping("/user/employee")
+    public EmployeeDto addEmployee(@RequestPart UserDto userDto, @RequestPart EmployeeDto employeeDto){
         return employeeService.createEmployee(userDto, employeeDto);
+    }
+
+    @PutMapping("/user/employee/{id}")
+    public EmployeeDto updateEmployee(@PathVariable Long id, @RequestBody EmployeeDto employeeDto){
+        return employeeService.updateEmployee(id, employeeDto);
+    }
+
+    @DeleteMapping("/user/employee/{id}")
+    public void deleteEmployee(@PathVariable Long id){
+       employeeService.deleteEmployee(id);
     }
 
 }

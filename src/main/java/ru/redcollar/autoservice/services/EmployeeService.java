@@ -3,6 +3,7 @@ package ru.redcollar.autoservice.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.redcollar.autoservice.exceptions.LockedAgeException;
+import ru.redcollar.autoservice.exceptions.NotFoundEntityException;
 import ru.redcollar.autoservice.model.dto.EmployeeDto;
 import ru.redcollar.autoservice.model.dto.UserDto;
 import ru.redcollar.autoservice.model.entities.EmployeeEntity;
@@ -17,6 +18,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Optional;
 
 import static ru.redcollar.autoservice.services.CheckService.checkAge;
 
@@ -94,4 +96,32 @@ public class EmployeeService {
         return employeeDtoFactory.makeEmployeeDto(employeeRepository.save(employee));
     }
 
+    public EmployeeDto updateEmployee(Long id, EmployeeDto employeeDto) throws LockedAgeException {
+
+        Optional<EmployeeEntity> optionalPerson = employeeRepository.findById(id);
+        EmployeeEntity employee = optionalPerson.orElseThrow(() -> new NotFoundEntityException("cотрудник", id));
+
+        String dateOfBirth = String.valueOf(employeeDto.getDateOfBirth());
+        checkAge(parseDate(dateOfBirth));
+
+        employee.setName(employeeDto.getName());
+        employee.setSurname(employeeDto.getSurname());
+        employee.setPatronymic(employeeDto.getPatronymic());
+        employee.setDateOfBirth(parseDate(dateOfBirth));
+        employee.setPhoneNumber(employeeDto.getPhoneNumber());
+        employee.setPost(employeeDto.getPost());
+        employee.setSalary(employeeDto.getSalary());
+        employee.setWorkExperience(employeeDto.getWorkExperience());
+        employee.setDuty(employeeDto.getDuty());
+        employee.setSeniorityAllowance(employeeDto.getSeniorityAllowance());
+
+        return employeeDtoFactory.makeEmployeeDto(employeeRepository.save(employee));
+    }
+
+    public void deleteEmployee(Long id) throws NotFoundEntityException {
+        Optional<EmployeeEntity> optionalPerson = employeeRepository.findById(id);
+        optionalPerson.orElseThrow(() -> new NotFoundEntityException("cотрудник", id));
+
+        employeeRepository.deleteById(id);
+    }
 }

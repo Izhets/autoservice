@@ -29,7 +29,7 @@ public class CheckService {
         long daysBetween = ChronoUnit.DAYS.between(twoDate, firstDate);
         System.out.println(daysBetween/365);
         if (daysBetween/365 < 18){
-            throw new LockedAgeException("Извините, вам должно быть 18!");
+            throw new LockedAgeException();
         }
     }
 }

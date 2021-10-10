@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class LockedAgeException extends RuntimeException{
 
-    public LockedAgeException(String message){
-        super(message);
+    public LockedAgeException(){
+        super("Извините, чтобы продолжить вам должно быть 18!");
     }
 
 }
