@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import ru.redcollar.autoservice.exceptions.LockedAgeException;
 import ru.redcollar.autoservice.exceptions.NotFoundEntityException;
 import ru.redcollar.autoservice.model.dto.EmployeeDto;
-import ru.redcollar.autoservice.model.dto.UserDto;
 import ru.redcollar.autoservice.model.entities.EmployeeEntity;
 import ru.redcollar.autoservice.model.entities.UserEntity;
 import ru.redcollar.autoservice.model.factories.EmployeeDtoFactory;
@@ -36,10 +35,6 @@ public class EmployeeService {
         this.userDtoFactory = userDtoFactory;
     }
 
-    public List<EmployeeEntity> getAllEmployees() {
-        return (List<EmployeeEntity>) employeeRepository.findAll();
-    }
-
     private final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
     private final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -60,25 +55,18 @@ public class EmployeeService {
         }
     }
 
-    public EmployeeDto createEmployee(UserDto userDto, EmployeeDto employeeDto) throws LockedAgeException {
+    public List<EmployeeEntity> getAllEmployees() {
+        return (List<EmployeeEntity>) employeeRepository.findAll();
+    }
+
+    public EmployeeDto createEmployee(UserEntity userEntity, EmployeeDto employeeDto) throws LockedAgeException {
 
         String dateOfBirth = String.valueOf(employeeDto.getDateOfBirth());
-
         checkAge(parseDate(dateOfBirth));
-
-        UserEntity user = userRepository.save(
-                UserEntity.builder()
-                        .login(userDto.getLogin())
-                        .password(userDto.getPassword())
-                        .email(userDto.getEmail())
-                        .build()
-        );
-
-        userDtoFactory.makeUserDto(user);
 
         EmployeeEntity employee = employeeRepository.save(
                 EmployeeEntity.builder()
-                        .userID(user.getId())
+                        .userID(userEntity.getId())
                         .name(employeeDto.getName())
                         .surname(employeeDto.getSurname())
                         .patronymic(employeeDto.getPatronymic())

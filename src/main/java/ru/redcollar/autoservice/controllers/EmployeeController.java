@@ -1,24 +1,24 @@
 package ru.redcollar.autoservice.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.redcollar.autoservice.model.dto.EmployeeDto;
 import ru.redcollar.autoservice.model.dto.UserDto;
 import ru.redcollar.autoservice.model.entities.EmployeeEntity;
-import ru.redcollar.autoservice.repositories.EmployeeRepository;
 import ru.redcollar.autoservice.services.EmployeeService;
+import ru.redcollar.autoservice.services.UserService;
 
 import java.util.List;
-
 
 @RestController
 @RequestMapping("/api")
 public class EmployeeController {
 
     private final EmployeeService employeeService;
+    private final UserService userService;
 
-    public EmployeeController(EmployeeService employeeService) {
+    public EmployeeController(EmployeeService employeeService, UserService userService) {
         this.employeeService = employeeService;
+        this.userService = userService;
     }
 
     @GetMapping("/user/employee")
@@ -26,9 +26,15 @@ public class EmployeeController {
         return employeeService.getAllEmployees();
     }
 
+//Кривой метод
+//    @PostMapping("/user/employee")
+//    public EmployeeDto addEmployee(@RequestPart UserDto userDto, @RequestPart EmployeeDto employeeDto){
+//        return employeeService.createEmployee(userDto, employeeDto);
+//    }
+
     @PostMapping("/user/employee")
     public EmployeeDto addEmployee(@RequestPart UserDto userDto, @RequestPart EmployeeDto employeeDto){
-        return employeeService.createEmployee(userDto, employeeDto);
+        return employeeService.createEmployee(userService.createUser(userDto), employeeDto);
     }
 
     @PutMapping("/user/employee/{id}")

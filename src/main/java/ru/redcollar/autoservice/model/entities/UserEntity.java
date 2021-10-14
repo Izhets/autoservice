@@ -20,7 +20,9 @@ public class UserEntity {
     private String password;
     private String email;
 
-
     @MappedCollection(idColumn = "user_id")
     private EmployeeEntity employee;
+
+    @MappedCollection(idColumn = "user_id")
+    private ClientEntity client;
 }

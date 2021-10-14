@@ -1,12 +1,11 @@
 package ru.redcollar.autoservice.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import ru.redcollar.autoservice.model.dto.UserDto;
 import ru.redcollar.autoservice.model.entities.UserEntity;
 import ru.redcollar.autoservice.repositories.UserRepository;
 import ru.redcollar.autoservice.services.UserService;
-import ru.redcollar.autoservice.model.dto.UserDto;
 
 import java.util.List;
 
@@ -25,15 +24,17 @@ public class UserController {
 
     @GetMapping("/user")
     public List<UserEntity> getAllStudents() {
-
         return (List<UserEntity>) userRepository.findAll();
     }
 
-    @PostMapping("/user")
-    public UserDto createUser(@RequestBody UserEntity user) {
-        return userService.createUser(user);
+    @PutMapping("/user/{id}")
+    public UserDto updateEmployee(@PathVariable Long id, @RequestBody UserDto userDto){
+        return userService.updateUser(id, userDto);
     }
 
-
+    @DeleteMapping("/user/{id}")
+    public void deleteEmployee(@PathVariable Long id){
+        userService.deleteUser(id);
+    }
 
 }
