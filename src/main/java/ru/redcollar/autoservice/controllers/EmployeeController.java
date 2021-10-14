@@ -15,10 +15,11 @@ import java.util.List;
 @RequestMapping("/api")
 public class EmployeeController {
 
-    @Autowired
-    private EmployeeRepository employeeRepository;
-    @Autowired
-    private EmployeeService employeeService;
+    private final EmployeeService employeeService;
+
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
 
     @GetMapping("/user/employee")
     public List<EmployeeEntity> getAllEmployee() {

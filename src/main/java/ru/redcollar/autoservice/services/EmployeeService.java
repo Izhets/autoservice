@@ -1,6 +1,5 @@
 package ru.redcollar.autoservice.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.redcollar.autoservice.exceptions.LockedAgeException;
 import ru.redcollar.autoservice.exceptions.NotFoundEntityException;
@@ -20,7 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
-import static ru.redcollar.autoservice.services.CheckService.checkAge;
+import static ru.redcollar.autoservice.validations.AgeValidator.checkAge;
 
 @Service
 public class EmployeeService {

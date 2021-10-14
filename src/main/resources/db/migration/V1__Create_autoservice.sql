@@ -19,3 +19,4 @@
     seniority_allowance VARCHAR NOT NULL,
     user_id BIGINT NOT NULL REFERENCES autoservice.user(id)
     );
+

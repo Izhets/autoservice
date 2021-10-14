@@ -1,15 +1,12 @@
-package ru.redcollar.autoservice.services;
+package ru.redcollar.autoservice.validations;
 
 import ru.redcollar.autoservice.exceptions.LockedAgeException;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.Temporal;
 import java.util.Date;
 
-public class CheckService {
+public class AgeValidator {
 
     public static LocalDate convertToEntityAttribute(java.sql.Date databaseValue) {
 
@@ -18,6 +15,7 @@ public class CheckService {
     }
 
     public static void checkAge(Date dateOfBirth) throws LockedAgeException {
+
 //        String[] s=dateOfBirth.split("[.,--]");
 //        if (Integer.parseInt(s[0]) >= 2003){
 //            throw new LockedAgeException("Извините, вам должно быть 18!");
@@ -31,5 +29,6 @@ public class CheckService {
         if (daysBetween/365 < 18){
             throw new LockedAgeException();
         }
+
     }
 }
