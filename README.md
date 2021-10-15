@@ -37,6 +37,5 @@
 ### Quick start
 
 * Clone this project
-* Run PostgreSQL process or use docker command: docker run --name some-postgres --volume db-data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=paspaspas-e POSTGRES_DB=autoservice -p 5434:5432 postgres:12-alpine
-* Run in console gradle: docker-compose up
+* Enter in console gradle: docker-compose up
 * Point your browser to http://localhost:8080/ to use api.
