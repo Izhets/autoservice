@@ -34,7 +34,7 @@
 По другим вопросам писать:
 [khnykin@redcollar.ru](mailto:khnykin@redcollar.ru)
 
-###Quick start
+### Quick start
 
 * Clone this project
 * Run PostgreSQL process or use docker command: docker run --name some-postgres --volume db-data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=paspaspas-e POSTGRES_DB=autoservice -p 5434:5432 postgres:12-alpine
