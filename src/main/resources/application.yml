@@ -3,10 +3,12 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/autoservice?currentSchema=autoservice
+    url: jdbc:postgresql://postgres_db:5432/autoservice
     username: postgres
     password: paspaspas
     driverClassName: org.postgresql.Driver
+    hikari:
+      schema: autoservice
   flyway:
     enabled: true
     baseline-on-migrate: true

@@ -1,27 +1,42 @@
-# Getting Started
+# Хелпа
 
-### Reference Documentation
+### Описание проекта
 
-For further reference, please consider the following sections:
+Тестовый стажерский проект для освоения принятой в компании архитектуры приложений.
+Предметная область - автосервис.
 
-* [Official Gradle documentation](https://docs.gradle.org)
-* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.5.5/gradle-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.5.5/gradle-plugin/reference/html/#build-image)
-* [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/2.5.5/reference/htmlsingle/#using-boot-devtools)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/2.5.5/reference/htmlsingle/#boot-features-developing-web-applications)
+### Физическая схема и ER диаграмма БД
+* [Схема](https://lucid.app/lucidchart/8e5cbec9-4e94-48ff-8e2d-ae95bfcbe816/edit?invitationId=inv_cefcaaab-6969-4f4f-aa0b-be36e10a6a98/)
 
-### Guides
+### Стек
 
-The following guides illustrate how to use some features concretely:
+В проекте используются следующие технологии:
 
-* [Accessing data with MySQL](https://spring.io/guides/gs/accessing-data-mysql/)
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
+Компоненты Spring фреймворка:
+* [Spring MVC](https://spring.io/guides/gs/serving-web-content/)
+* [Spring Boot](https://spring.io/projects/spring-boot/)
 
-### Additional Links
+СУБД:
+* [PostgreSQL](https://www.postgresql.org/)
 
-These additional references should also help you:
+Инструменты:
+* [Flyway](https://flywaydb.org/)
+* [Lombok](https://projectlombok.org/)
+* [Swagger](https://swagger.io/)
+* [Docker](https://www.docker.com)
 
-* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
+### Для запуска проекта
 
+База лежит внутри проекта
+
+
+
+По другим вопросам писать:
+[khnykin@redcollar.ru](mailto:khnykin@redcollar.ru)
+
+###Quick start
+
+* Clone this project
+* Run PostgreSQL process or use docker command: docker run --name some-postgres --volume db-data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=paspaspas-e POSTGRES_DB=autoservice -p 5434:5432 postgres:12-alpine
+* Run in console gradle: docker-compose up
+* Point your browser to http://localhost:8080/ to use api.

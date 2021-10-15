@@ -21,13 +21,10 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-//    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
     implementation group: 'org.flywaydb', name: 'flyway-core', version: '8.0.0-beta3'
     implementation group: 'io.swagger.core.v3', name: 'swagger-annotations', version: '2.1.11'
     implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.5.10'
-//    implementation group: 'org.springframework.data', name: 'spring-data-relational', version: '2.2.5'
-//    implementation 'org.springframework.boot:spring-boot-starter-security'
-//    implementation 'org.springframework.security:spring-security-test'
 
     runtimeOnly 'mysql:mysql-connector-java'
     runtimeOnly 'org.postgresql:postgresql'
@@ -36,7 +33,6 @@ dependencies {
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     compileOnly 'org.projectlombok:lombok'
-
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.0'
