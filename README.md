@@ -16,7 +16,7 @@
 * [Spring MVC](https://spring.io/guides/gs/serving-web-content/)
 * [Spring Boot](https://spring.io/projects/spring-boot/)
 
-СУБД:
+### СУБД:
 * [PostgreSQL](https://www.postgresql.org/)
 
 Инструменты:
@@ -27,9 +27,7 @@
 
 ### Для запуска проекта
 
-База лежит внутри проекта
-
-
+База пуста и создается каждый раз с заппуском проекта
 
 По другим вопросам писать:
 [khnykin@redcollar.ru](mailto:khnykin@redcollar.ru)
