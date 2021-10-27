@@ -59,6 +59,13 @@ public class EmployeeService {
         return (List<EmployeeEntity>) employeeRepository.findAll();
     }
 
+    public EmployeeEntity getById(Long id) {
+        Optional<EmployeeEntity> optionalPerson = employeeRepository.findById(id);
+        EmployeeEntity employee = optionalPerson.orElseThrow(() -> new NotFoundEntityException("cотрудник", id));
+
+        return employee;
+    }
+
     public EmployeeDto createEmployee(UserEntity userEntity, EmployeeDto employeeDto) throws LockedAgeException {
 
         String dateOfBirth = String.valueOf(employeeDto.getDateOfBirth());

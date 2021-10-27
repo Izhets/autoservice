@@ -21,6 +21,7 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
     implementation group: 'org.flywaydb', name: 'flyway-core', version: '8.0.0-beta3'
     implementation group: 'io.swagger.core.v3', name: 'swagger-annotations', version: '2.1.11'

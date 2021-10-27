@@ -11,6 +11,7 @@ import java.sql.Date;
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class EmployeeEntity {

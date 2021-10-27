@@ -4,16 +4,22 @@ import org.springframework.stereotype.Service;
 import ru.redcollar.autoservice.exceptions.LockedAgeException;
 import ru.redcollar.autoservice.exceptions.NotFoundEntityException;
 import ru.redcollar.autoservice.model.dto.ClientDto;
+import ru.redcollar.autoservice.model.dto.EmployeeDto;
+import ru.redcollar.autoservice.model.dto.OrderListDto;
 import ru.redcollar.autoservice.model.entities.ClientEntity;
+import ru.redcollar.autoservice.model.entities.EmployeeEntity;
 import ru.redcollar.autoservice.model.entities.UserEntity;
 import ru.redcollar.autoservice.model.factories.ClientDtoFactory;
+import ru.redcollar.autoservice.model.factories.EmployeeDtoFactory;
 import ru.redcollar.autoservice.repositories.ClientRepository;
+import ru.redcollar.autoservice.repositories.EmployeeRepository;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static ru.redcollar.autoservice.validations.AgeValidator.checkAge;
@@ -21,12 +27,21 @@ import static ru.redcollar.autoservice.validations.AgeValidator.checkAge;
 @Service
 public class ClientService {
 
+    private final WebClientService webClientService;
+
     private final ClientRepository clientRepository;
     private final ClientDtoFactory clientDtoFactory;
+    private final EmployeeService employeeService;
+    private final EmployeeDtoFactory employeeDtoFactory;
+    private final EmployeeRepository employeeRepository;
 
-    public ClientService(ClientRepository clientRepository, ClientDtoFactory clientDtoFactory) {
+    public ClientService(WebClientService webClientService, ClientRepository clientRepository, ClientDtoFactory clientDtoFactory, EmployeeService employeeService, EmployeeDtoFactory employeeDtoFactory, EmployeeRepository employeeRepository) {
+        this.webClientService = webClientService;
         this.clientRepository = clientRepository;
         this.clientDtoFactory = clientDtoFactory;
+        this.employeeService = employeeService;
+        this.employeeDtoFactory = employeeDtoFactory;
+        this.employeeRepository = employeeRepository;
     }
 
     private final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
@@ -51,6 +66,13 @@ public class ClientService {
 
     public List<ClientEntity> getAllClient() {
         return (List<ClientEntity>) clientRepository.findAll();
+    }
+
+    public ClientEntity getById(Long id) {
+        Optional<ClientEntity> optionalPerson = clientRepository.findById(id);
+        ClientEntity client = optionalPerson.orElseThrow(() -> new NotFoundEntityException("cотрудник", id));
+
+        return client;
     }
 
     public ClientDto createClient(UserEntity userEntity, ClientDto clientDto) throws LockedAgeException {
@@ -94,6 +116,21 @@ public class ClientService {
         optionalPerson.orElseThrow(() -> new NotFoundEntityException("клиент", id));
 
         clientRepository.deleteById(id);
+    }
+
+    public String getNameOrderEmployee(Long id){
+        Optional<EmployeeEntity> optionalPerson = employeeRepository.findById(id);
+        EmployeeEntity employee = optionalPerson.orElseThrow(() -> new NotFoundEntityException("клиент", id));
+
+        List<OrderListDto> orderListDtoList = webClientService.getOrdersList();
+
+        for (OrderListDto orders : orderListDtoList){
+            if (Objects.equals(orders.getClientId(), id)){
+                employee = employeeService.getById(id);
+            }
+        }
+
+        return employee.getName();
     }
 
 }

@@ -2,6 +2,7 @@ package ru.redcollar.autoservice.controllers;
 
 import org.springframework.web.bind.annotation.*;
 import ru.redcollar.autoservice.model.dto.ClientDto;
+import ru.redcollar.autoservice.model.dto.EmployeeDto;
 import ru.redcollar.autoservice.model.dto.UserDto;
 import ru.redcollar.autoservice.model.entities.ClientEntity;
 import ru.redcollar.autoservice.services.ClientService;
@@ -42,4 +43,8 @@ public class ClientController {
         clientService.deleteClient(id);
     }
 
+    @GetMapping("/user/client/orders/{id}")
+    public String getNameOrderEmployee(@PathVariable Long id){
+        return clientService.getNameOrderEmployee(id);
+    }
 }
