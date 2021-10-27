@@ -5,6 +5,8 @@
 Тестовый стажерский проект для освоения принятой в компании архитектуры приложений.
 Предметная область - автосервис.
 
+UPD: Теперь проект состоит из двух, связанных, микросервисов.
+
 ### Физическая схема и ER диаграмма БД
 * [Схема](https://lucid.app/lucidchart/8e5cbec9-4e94-48ff-8e2d-ae95bfcbe816/edit?invitationId=inv_cefcaaab-6969-4f4f-aa0b-be36e10a6a98/)
 
@@ -24,6 +26,7 @@
 * [Lombok](https://projectlombok.org/)
 * [Swagger](https://swagger.io/)
 * [Docker](https://www.docker.com)
+* [WebClient]()
 
 ### Для запуска проекта
 
@@ -34,6 +37,8 @@
 
 ### Quick start
 
-* Clone this project
-* Enter in console gradle: docker-compose up
-* Point your browser to http://localhost:8080/ to use api.
+* Clone this project;
+* And clone "orders" project;
+* Enter in console gradle: docker-compose build;
+* Enter in console gradle: docker-compose up;
+* Point your browser or any calculator to http://localhost:8080/ to use api.
