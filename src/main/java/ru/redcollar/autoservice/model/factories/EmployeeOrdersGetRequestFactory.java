@@ -11,7 +11,7 @@ import java.util.List;
 @Component
 public class EmployeeOrdersGetRequestFactory {
 
-    public EmployeeOrdersGetRequest makeEmployeeOrdersGetRequestFactory(EmployeeEntity entity, List<OrderListDto> orderListDto){
+    public EmployeeOrdersGetRequest makeEmployeeOrdersDto(EmployeeEntity entity, List<OrderListDto> orderListDto){
 
         return EmployeeOrdersGetRequest.builder()
                 .name(entity.getName())

@@ -11,7 +11,7 @@ import ru.redcollar.autoservice.services.UserService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users/employees")
+@RequestMapping("/api/profiles/employees")
 public class EmployeeController {
 
     private final EmployeeService employeeService;
@@ -31,6 +31,8 @@ public class EmployeeController {
     public EmployeeDto addEmployee(@RequestPart UserDto userDto, @RequestPart EmployeeDto employeeDto){
         return employeeService.createEmployee(userService.createUser(userDto), employeeDto);
     }
+
+//Bean Scopes
 
     @PutMapping("/{id}")
     public EmployeeDto updateEmployee(@PathVariable Long id, @RequestBody EmployeeDto employeeDto){

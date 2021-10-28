@@ -127,14 +127,13 @@ public class EmployeeService {
         employeeRepository.deleteById(id);
     }
 
-
-    public EmployeeOrdersGetRequest getEmployeeOrders(Long id) throws NotFoundEntityException{
+    public EmployeeOrdersGetRequest getEmployeeOrders(Long id) throws NotFoundEntityException {
         List<OrderListDto> orderListDtoList = webClientService.getOrdersList(id);
 
         System.out.println(orderListDtoList);
         EmployeeEntity employee = getById(id);
 
-        return employeeOrdersGetRequestFactory.makeEmployeeOrdersGetRequestFactory(employee, orderListDtoList);
+        return employeeOrdersGetRequestFactory.makeEmployeeOrdersDto(employee, orderListDtoList);
     }
 
 }

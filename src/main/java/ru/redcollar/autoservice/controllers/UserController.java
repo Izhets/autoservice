@@ -10,7 +10,7 @@ import ru.redcollar.autoservice.services.UserService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/profiles/users")
 public class UserController {
 
     private final UserRepository userRepository;

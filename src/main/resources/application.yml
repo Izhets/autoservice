@@ -1,9 +1,8 @@
-microservices:
-  ordersService:
-    url:
-      base: ${MICROSERVICES_ORDERSSERVICE_URL_ORDERS:http://localhost:8081}
-      get:
-        orders: ${MICROSERVICES_ORDERSSERVICE_URL_GET_ORDERS:/api/orders}
+ordersService:
+  url:
+    base: ${ORDERSSERVICE_URL_ORDERS:http://localhost:8081}
+    get:
+      orders: ${ORDERSSERVICE_URL_GET_ORDERS:/api/orders}
 
 server:
   port: 8080

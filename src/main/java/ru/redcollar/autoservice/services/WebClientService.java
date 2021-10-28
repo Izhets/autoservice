@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 public class WebClientService {
-    @Value("${microservices.ordersService.url.get.orders}")
+    @Value("${ordersService.url.get.orders}")
     private String getOrders;
 
     private final WebClient webClient;
@@ -33,14 +33,4 @@ public class WebClientService {
                 }).block();
     }
 
-//    public OrderListDto getOrdersList(Long id) {
-//        return (OrderListDto) webClient.get()
-//                .uri(uriBuilder -> uriBuilder
-//                        .path(getOrders + "/" + id)
-//                        .build())
-//                .accept(MediaType.APPLICATION_JSON)
-//                .retrieve()
-//                .bodyToMono(new ParameterizedTypeReference<OrderListDto>() {
-//                }).block();
-//    }
 }

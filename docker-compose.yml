@@ -22,8 +22,8 @@ services:
     environment:
       - PORT=8080
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/autoservice
-      - MICROSERVICES_ORDERSSERVICE_URL_ORDERS=http://appOrders:8081
-      - MICROSERVICES_ORDERSSERVICE_URL_GET_ORDERS=api/orders
+      - ORDERSSERVICE_URL_ORDERS=http://appOrders:8081
+      - ORDERSSERVICE_URL_GET_ORDERS=api/orders
       - SPRING_DATASOURSE_USERNAME=postgres
       - SPRING_DATASOURSE_PASSWORD=paspaspas
       - SPRING_DATASOURSE_HIKARI_SCHEMA=profiles
