@@ -22,14 +22,25 @@ public class WebClientService {
         this.webClient = webClient;
     }
 
-    public List<OrderListDto> getOrdersList() {
+    public List<OrderListDto> getOrdersList(Long id) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
-                        .path(getOrders)
+                        .path(getOrders + "/" + id)
                         .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<List<OrderListDto>>() {
                 }).block();
     }
+
+//    public OrderListDto getOrdersList(Long id) {
+//        return (OrderListDto) webClient.get()
+//                .uri(uriBuilder -> uriBuilder
+//                        .path(getOrders + "/" + id)
+//                        .build())
+//                .accept(MediaType.APPLICATION_JSON)
+//                .retrieve()
+//                .bodyToMono(new ParameterizedTypeReference<OrderListDto>() {
+//                }).block();
+//    }
 }

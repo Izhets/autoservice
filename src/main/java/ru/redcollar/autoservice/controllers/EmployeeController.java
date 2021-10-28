@@ -2,6 +2,7 @@ package ru.redcollar.autoservice.controllers;
 
 import org.springframework.web.bind.annotation.*;
 import ru.redcollar.autoservice.model.dto.EmployeeDto;
+import ru.redcollar.autoservice.model.dto.EmployeeOrdersGetRequest;
 import ru.redcollar.autoservice.model.dto.UserDto;
 import ru.redcollar.autoservice.model.entities.EmployeeEntity;
 import ru.redcollar.autoservice.services.EmployeeService;
@@ -26,12 +27,6 @@ public class EmployeeController {
         return employeeService.getAllEmployees();
     }
 
-//Кривой метод
-//    @PostMapping("/user/employee")
-//    public EmployeeDto addEmployee(@RequestPart UserDto userDto, @RequestPart EmployeeDto employeeDto){
-//        return employeeService.createEmployee(userDto, employeeDto);
-//    }
-
     @PostMapping
     public EmployeeDto addEmployee(@RequestPart UserDto userDto, @RequestPart EmployeeDto employeeDto){
         return employeeService.createEmployee(userService.createUser(userDto), employeeDto);
@@ -45,6 +40,11 @@ public class EmployeeController {
     @DeleteMapping("/{id}")
     public void deleteEmployee(@PathVariable Long id){
        employeeService.deleteEmployee(id);
+    }
+
+    @GetMapping("/{id}/orders")
+    public EmployeeOrdersGetRequest getNameOrderEmployee(@PathVariable Long id){
+        return employeeService.getEmployeeOrders(id);
     }
 
 }

@@ -118,23 +118,36 @@ public class ClientService {
         clientRepository.deleteById(id);
     }
 
+    //в контроллере микросервиса ордер создать метод для получения оредр листа по
+    // емпои ид чтобы вытащились только определенные
+
+    //в микросервисе профайл вызвать этот метод
+    //приходит айди эмплои я через него гружу все оредр листы
+
+
+    //поллучение всех листов
+    //Загрузить все ордер листы по емплои ид, загрузить всю информацию по емплои, всё объединить в одну ДТО и вернуть
+
     public String getNameOrderEmployee(Long id) throws NotFoundEntityException{
         EmployeeEntity employee;
 
         Long employeeId = null;
 
-        List<OrderListDto> orderListDtoList = webClientService.getOrdersList();
-        for (OrderListDto orders : orderListDtoList){
-            if (Objects.equals(orders.getEmployeeId(), id)) {
-                employeeId = id;
-                break;
-            }
-        }
-        if (employeeId != null) {
-            employee = employeeService.getById(id);
-            return employee.getName();
-        }else {
+       // OrderListDto orderListDtoList = webClientService.getOrdersList(id);
+      //  System.out.println(orderListDtoList);
+//        for (OrderListDto orders : 9){
+//            if (Objects.equals(orders.getEmployeeId(), id)) {
+//                employeeId = id;
+//                break;
+//            }
+//        }
+//        if (employeeId != null) {
+//            employee = employeeService.getById(id);
+//            return employee.getName();
+//        }else {
             return "Нет сотрудника с таким ID";
-        }
     }
+
+
+
 }

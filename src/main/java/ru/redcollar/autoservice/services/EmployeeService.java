@@ -4,9 +4,12 @@ import org.springframework.stereotype.Service;
 import ru.redcollar.autoservice.exceptions.LockedAgeException;
 import ru.redcollar.autoservice.exceptions.NotFoundEntityException;
 import ru.redcollar.autoservice.model.dto.EmployeeDto;
+import ru.redcollar.autoservice.model.dto.EmployeeOrdersGetRequest;
+import ru.redcollar.autoservice.model.dto.OrderListDto;
 import ru.redcollar.autoservice.model.entities.EmployeeEntity;
 import ru.redcollar.autoservice.model.entities.UserEntity;
 import ru.redcollar.autoservice.model.factories.EmployeeDtoFactory;
+import ru.redcollar.autoservice.model.factories.EmployeeOrdersGetRequestFactory;
 import ru.redcollar.autoservice.model.factories.UserDtoFactory;
 import ru.redcollar.autoservice.repositories.EmployeeRepository;
 import ru.redcollar.autoservice.repositories.UserRepository;
@@ -23,12 +26,17 @@ import static ru.redcollar.autoservice.validations.AgeValidator.checkAge;
 @Service
 public class EmployeeService {
 
+    private final WebClientService webClientService;
+
+    private final EmployeeOrdersGetRequestFactory employeeOrdersGetRequestFactory;
     private final EmployeeDtoFactory employeeDtoFactory;
     private final EmployeeRepository employeeRepository;
     private final UserRepository userRepository;
     private final UserDtoFactory userDtoFactory;
 
-    public EmployeeService(EmployeeDtoFactory employeeDtoFactory, EmployeeRepository employeeRepository, UserRepository userRepository, UserDtoFactory userDtoFactory) {
+    public EmployeeService(WebClientService webClientService, EmployeeOrdersGetRequestFactory employeeOrdersGetRequestFactory, EmployeeDtoFactory employeeDtoFactory, EmployeeRepository employeeRepository, UserRepository userRepository, UserDtoFactory userDtoFactory) {
+        this.webClientService = webClientService;
+        this.employeeOrdersGetRequestFactory = employeeOrdersGetRequestFactory;
         this.employeeDtoFactory = employeeDtoFactory;
         this.employeeRepository = employeeRepository;
         this.userRepository = userRepository;
@@ -118,4 +126,15 @@ public class EmployeeService {
 
         employeeRepository.deleteById(id);
     }
+
+
+    public EmployeeOrdersGetRequest getEmployeeOrders(Long id) throws NotFoundEntityException{
+        List<OrderListDto> orderListDtoList = webClientService.getOrdersList(id);
+
+        System.out.println(orderListDtoList);
+        EmployeeEntity employee = getById(id);
+
+        return employeeOrdersGetRequestFactory.makeEmployeeOrdersGetRequestFactory(employee, orderListDtoList);
+    }
+
 }
