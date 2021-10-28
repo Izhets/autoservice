@@ -10,7 +10,7 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 @Configuration
 public class ApplicationConfig {
 
-    @Value("${microservices.ordersService.url.base.person}")
+    @Value("${microservices.ordersService.url.base}")
     private String urlOrders;
 
     @Bean

@@ -1,8 +1,7 @@
 microservices:
   ordersService:
     url:
-      base:
-        person: ${MICROSERVICES_ORDERSSERVICE_URL_ORDERS:http://localhost:8081}
+      base: ${MICROSERVICES_ORDERSSERVICE_URL_ORDERS:http://localhost:8081}
       get:
         orders: ${MICROSERVICES_ORDERSSERVICE_URL_GET_ORDERS:/api/orders}
 

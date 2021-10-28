@@ -118,19 +118,23 @@ public class ClientService {
         clientRepository.deleteById(id);
     }
 
-    public String getNameOrderEmployee(Long id){
-        Optional<EmployeeEntity> optionalPerson = employeeRepository.findById(id);
-        EmployeeEntity employee = optionalPerson.orElseThrow(() -> new NotFoundEntityException("клиент", id));
+    public String getNameOrderEmployee(Long id) throws NotFoundEntityException{
+        EmployeeEntity employee;
+
+        Long employeeId = null;
 
         List<OrderListDto> orderListDtoList = webClientService.getOrdersList();
-
         for (OrderListDto orders : orderListDtoList){
-            if (Objects.equals(orders.getClientId(), id)){
-                employee = employeeService.getById(id);
+            if (Objects.equals(orders.getEmployeeId(), id)) {
+                employeeId = id;
+                break;
             }
         }
-
-        return employee.getName();
+        if (employeeId != null) {
+            employee = employeeService.getById(id);
+            return employee.getName();
+        }else {
+            return "Нет сотрудника с таким ID";
+        }
     }
-
 }

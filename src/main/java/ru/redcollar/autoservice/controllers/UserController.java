@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 public class UserController {
 
     private final UserRepository userRepository;
@@ -22,17 +22,17 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/user")
+    @GetMapping
     public List<UserEntity> getAllStudents() {
         return (List<UserEntity>) userRepository.findAll();
     }
 
-    @PutMapping("/user/{id}")
+    @PutMapping("/{id}")
     public UserDto updateEmployee(@PathVariable Long id, @RequestBody UserDto userDto) {
         return userService.updateUser(id, userDto);
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/{id}")
     public void deleteEmployee(@PathVariable Long id) {
         userService.deleteUser(id);
     }

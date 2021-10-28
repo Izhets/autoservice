@@ -10,7 +10,7 @@ import ru.redcollar.autoservice.services.UserService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users/employees")
 public class EmployeeController {
 
     private final EmployeeService employeeService;
@@ -21,7 +21,7 @@ public class EmployeeController {
         this.userService = userService;
     }
 
-    @GetMapping("/user/employee")
+    @GetMapping
     public List<EmployeeEntity> getAllEmployee() {
         return employeeService.getAllEmployees();
     }
@@ -32,17 +32,17 @@ public class EmployeeController {
 //        return employeeService.createEmployee(userDto, employeeDto);
 //    }
 
-    @PostMapping("/user/employee")
+    @PostMapping
     public EmployeeDto addEmployee(@RequestPart UserDto userDto, @RequestPart EmployeeDto employeeDto){
         return employeeService.createEmployee(userService.createUser(userDto), employeeDto);
     }
 
-    @PutMapping("/user/employee/{id}")
+    @PutMapping("/{id}")
     public EmployeeDto updateEmployee(@PathVariable Long id, @RequestBody EmployeeDto employeeDto){
         return employeeService.updateEmployee(id, employeeDto);
     }
 
-    @DeleteMapping("/user/employee/{id}")
+    @DeleteMapping("/{id}")
     public void deleteEmployee(@PathVariable Long id){
        employeeService.deleteEmployee(id);
     }
