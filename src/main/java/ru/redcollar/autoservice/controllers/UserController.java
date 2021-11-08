@@ -23,7 +23,7 @@ public class UserController {
 
     @GetMapping
     public List<UserEntity> getAllStudents() {
-        return (List<UserEntity>) userRepository.findAll();
+        return userService.getAllUsers();
     }
 
     @PutMapping("/{id}")

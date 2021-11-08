@@ -16,11 +16,6 @@ public class AgeValidator {
 
     public static void checkAge(Date dateOfBirth) throws LockedAgeException {
 
-//        String[] s=dateOfBirth.split("[.,--]");
-//        if (Integer.parseInt(s[0]) >= 2003){
-//            throw new LockedAgeException("Извините, вам должно быть 18!");
-//        }
-
         LocalDate firstDate = LocalDate.now();
         LocalDate twoDate = convertToEntityAttribute((java.sql.Date) dateOfBirth);
 

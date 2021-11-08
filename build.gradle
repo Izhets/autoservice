@@ -26,6 +26,7 @@ dependencies {
     implementation group: 'org.flywaydb', name: 'flyway-core', version: '8.0.0-beta3'
     implementation group: 'io.swagger.core.v3', name: 'swagger-annotations', version: '2.1.11'
     implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.5.10'
+    implementation files('../autoservice-common-lib/build/libs/autoservice-common-lib-0.0.1-SNAPSHOT-plain.jar')
 
     runtimeOnly 'org.postgresql:postgresql'
 

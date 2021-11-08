@@ -27,10 +27,16 @@ UPD: Теперь проект состоит из двух, связанных,
 * [Swagger](https://swagger.io/)
 * [Docker](https://www.docker.com)
 * [WebClient]()
+* [KeyCloak](https://www.keycloak.org/)
 
 ### Для запуска проекта
 
-База пуста и создается каждый раз с заппуском проекта
+База пуста и создается каждый раз с запуском проекта
+
+* Склонируйте этот проект, затем проект "orders" на свой компьютер;
+* Ведите в терминале из папки данного проекта: docker-compose build;
+* Ведите в терминале из папки данного проекта: docker-compose up;
+* Перейдите в вашем браузере или в другом калькуляторе на http://localhost:8080/ чтобы использовать api. 
 
 По другим вопросам писать:
 [khnykin@redcollar.ru](mailto:khnykin@redcollar.ru)
@@ -42,3 +48,6 @@ UPD: Теперь проект состоит из двух, связанных,
 * Enter in console gradle: docker-compose build;
 * Enter in console gradle: docker-compose up;
 * Point your browser or any calculator to http://localhost:8080/ to use api.
+
+If any questions, please, do not hesitate to contact me by e-mail:
+[khnykin@redcollar.ru](mailto:khnykin@redcollar.ru)

@@ -1,6 +1,7 @@
 package ru.redcollar.autoservice.controllers;
 
 import org.springframework.web.bind.annotation.*;
+import ru.redcollar.autoservice.model.dto.ClientCreateRequest;
 import ru.redcollar.autoservice.model.dto.ClientDto;
 import ru.redcollar.autoservice.model.dto.EmployeeDto;
 import ru.redcollar.autoservice.model.dto.UserDto;
@@ -28,9 +29,14 @@ public class ClientController {
         return clientService.getAllClient();
     }
 
+//    @PostMapping
+//    public ClientDto addClient(@RequestPart UserDto userDto, @RequestPart ClientDto clientDto){
+//        return clientService.createClient(userService.createUser(userDto), clientDto);
+//    }
+
     @PostMapping
-    public ClientDto addClient(@RequestPart UserDto userDto, @RequestPart ClientDto clientDto){
-        return clientService.createClient(userService.createUser(userDto), clientDto);
+    public ClientCreateRequest addClient(@RequestBody ClientCreateRequest clientCreateDto){
+        return clientService.createClient(clientCreateDto);
     }
 
     @PutMapping("/{id}")
@@ -41,10 +47,5 @@ public class ClientController {
     @DeleteMapping("/{id}")
     public void deleteClient(@PathVariable Long id){
         clientService.deleteClient(id);
-    }
-
-    @GetMapping("/orders/{id}")
-    public String getNameOrderEmployee(@PathVariable Long id){
-        return clientService.getNameOrderEmployee(id);
     }
 }

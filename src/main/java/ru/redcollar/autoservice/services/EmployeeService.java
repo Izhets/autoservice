@@ -5,7 +5,7 @@ import ru.redcollar.autoservice.exceptions.LockedAgeException;
 import ru.redcollar.autoservice.exceptions.NotFoundEntityException;
 import ru.redcollar.autoservice.model.dto.EmployeeDto;
 import ru.redcollar.autoservice.model.dto.EmployeeOrdersGetRequest;
-import ru.redcollar.autoservice.model.dto.OrderListDto;
+import ru.redcollar.autoservicecommonlib.model.dto.OrderListDto;
 import ru.redcollar.autoservice.model.entities.EmployeeEntity;
 import ru.redcollar.autoservice.model.entities.UserEntity;
 import ru.redcollar.autoservice.model.factories.EmployeeDtoFactory;

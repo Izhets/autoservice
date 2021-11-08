@@ -32,8 +32,6 @@ public class EmployeeController {
         return employeeService.createEmployee(userService.createUser(userDto), employeeDto);
     }
 
-//Bean Scopes
-
     @PutMapping("/{id}")
     public EmployeeDto updateEmployee(@PathVariable Long id, @RequestBody EmployeeDto employeeDto){
         return employeeService.updateEmployee(id, employeeDto);

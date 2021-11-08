@@ -4,10 +4,12 @@ import org.springframework.stereotype.Service;
 import ru.redcollar.autoservice.exceptions.LockedAgeException;
 import ru.redcollar.autoservice.exceptions.NotFoundEntityException;
 import ru.redcollar.autoservice.model.dto.UserDto;
+import ru.redcollar.autoservice.model.entities.EmployeeEntity;
 import ru.redcollar.autoservice.model.entities.UserEntity;
 import ru.redcollar.autoservice.model.factories.UserDtoFactory;
 import ru.redcollar.autoservice.repositories.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,9 +23,14 @@ public class UserService {
         this.userDtoFactory = userDtoFactory;
     }
 
+    public List<UserEntity> getAllUsers() {
+        return (List<UserEntity>) userRepository.findAll();
+    }
+
     public UserEntity createUser(UserDto userDto) {
         return userRepository.save(
                 UserEntity.builder()
+                        .id(userDto.getId())
                         .login(userDto.getLogin())
                         .password(userDto.getPassword())
                         .email(userDto.getEmail())

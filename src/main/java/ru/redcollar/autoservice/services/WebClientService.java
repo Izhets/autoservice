@@ -6,7 +6,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import ru.redcollar.autoservice.model.dto.OrderListDto;
+import ru.redcollar.autoservicecommonlib.model.dto.OrderListDto;
 
 import java.util.List;
 

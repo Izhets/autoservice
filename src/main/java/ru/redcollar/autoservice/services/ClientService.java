@@ -3,23 +3,23 @@ package ru.redcollar.autoservice.services;
 import org.springframework.stereotype.Service;
 import ru.redcollar.autoservice.exceptions.LockedAgeException;
 import ru.redcollar.autoservice.exceptions.NotFoundEntityException;
+import ru.redcollar.autoservice.model.dto.ClientCreateRequest;
 import ru.redcollar.autoservice.model.dto.ClientDto;
-import ru.redcollar.autoservice.model.dto.EmployeeDto;
-import ru.redcollar.autoservice.model.dto.OrderListDto;
 import ru.redcollar.autoservice.model.entities.ClientEntity;
 import ru.redcollar.autoservice.model.entities.EmployeeEntity;
 import ru.redcollar.autoservice.model.entities.UserEntity;
+import ru.redcollar.autoservice.model.factories.ClientCreateRequestFactory;
 import ru.redcollar.autoservice.model.factories.ClientDtoFactory;
 import ru.redcollar.autoservice.model.factories.EmployeeDtoFactory;
 import ru.redcollar.autoservice.repositories.ClientRepository;
 import ru.redcollar.autoservice.repositories.EmployeeRepository;
+import ru.redcollar.autoservice.repositories.UserRepository;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import static ru.redcollar.autoservice.validations.AgeValidator.checkAge;
@@ -31,17 +31,21 @@ public class ClientService {
 
     private final ClientRepository clientRepository;
     private final ClientDtoFactory clientDtoFactory;
+    private final UserRepository userRepository;
     private final EmployeeService employeeService;
     private final EmployeeDtoFactory employeeDtoFactory;
     private final EmployeeRepository employeeRepository;
+    private final ClientCreateRequestFactory clientCreateRequestFactory;
 
-    public ClientService(WebClientService webClientService, ClientRepository clientRepository, ClientDtoFactory clientDtoFactory, EmployeeService employeeService, EmployeeDtoFactory employeeDtoFactory, EmployeeRepository employeeRepository) {
+    public ClientService(WebClientService webClientService, ClientRepository clientRepository, ClientDtoFactory clientDtoFactory, UserRepository userRepository, EmployeeService employeeService, EmployeeDtoFactory employeeDtoFactory, EmployeeRepository employeeRepository, ClientCreateRequestFactory clientCreateRequestFactory) {
         this.webClientService = webClientService;
         this.clientRepository = clientRepository;
         this.clientDtoFactory = clientDtoFactory;
+        this.userRepository = userRepository;
         this.employeeService = employeeService;
         this.employeeDtoFactory = employeeDtoFactory;
         this.employeeRepository = employeeRepository;
+        this.clientCreateRequestFactory = clientCreateRequestFactory;
     }
 
     private final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
@@ -94,6 +98,33 @@ public class ClientService {
         return clientDtoFactory.makeClientDto(clientRepository.save(client));
     }
 
+        public ClientCreateRequest createClient(ClientCreateRequest clientCreateDto) throws LockedAgeException {
+
+        String dateOfBirth = String.valueOf(clientCreateDto.getDateOfBirth());
+        checkAge(parseDate(dateOfBirth));
+
+        UserEntity user = userRepository.save(
+                UserEntity.builder()
+                        .login(clientCreateDto.getLogin())
+                        .password(clientCreateDto.getPassword())
+                        .email(clientCreateDto.getEmail())
+                        .build()
+        );
+
+        ClientEntity client = clientRepository.save(
+                ClientEntity.builder()
+                        .userID(user.getId())
+                        .name(clientCreateDto.getName())
+                        .surname(clientCreateDto.getSurname())
+                        .patronymic(clientCreateDto.getPatronymic())
+                        .dateOfBirth(parseDate(dateOfBirth))
+                        .phoneNumber(clientCreateDto.getPhoneNumber())
+                        .build()
+        );
+
+        return clientCreateRequestFactory.makeClientDto(client, user);
+    }
+
     public ClientDto updateClient(Long id, ClientDto clientDto) throws LockedAgeException {
 
         Optional<ClientEntity> optionalPerson = clientRepository.findById(id);
@@ -117,37 +148,5 @@ public class ClientService {
 
         clientRepository.deleteById(id);
     }
-
-    //в контроллере микросервиса ордер создать метод для получения оредр листа по
-    // емпои ид чтобы вытащились только определенные
-
-    //в микросервисе профайл вызвать этот метод
-    //приходит айди эмплои я через него гружу все оредр листы
-
-
-    //поллучение всех листов
-    //Загрузить все ордер листы по емплои ид, загрузить всю информацию по емплои, всё объединить в одну ДТО и вернуть
-
-    public String getNameOrderEmployee(Long id) throws NotFoundEntityException{
-        EmployeeEntity employee;
-
-        Long employeeId = null;
-
-       // OrderListDto orderListDtoList = webClientService.getOrdersList(id);
-      //  System.out.println(orderListDtoList);
-//        for (OrderListDto orders : 9){
-//            if (Objects.equals(orders.getEmployeeId(), id)) {
-//                employeeId = id;
-//                break;
-//            }
-//        }
-//        if (employeeId != null) {
-//            employee = employeeService.getById(id);
-//            return employee.getName();
-//        }else {
-            return "Нет сотрудника с таким ID";
-    }
-
-
 
 }

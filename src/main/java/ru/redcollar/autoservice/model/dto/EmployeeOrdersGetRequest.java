@@ -1,6 +1,8 @@
 package ru.redcollar.autoservice.model.dto;
 
 import lombok.*;
+import ru.redcollar.autoservicecommonlib.model.dto.OrderListDto;
+
 import java.sql.Date;
 import java.util.List;
 

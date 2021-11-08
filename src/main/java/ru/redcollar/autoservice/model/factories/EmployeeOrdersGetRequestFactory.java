@@ -1,7 +1,7 @@
 package ru.redcollar.autoservice.model.factories;
 
 import ru.redcollar.autoservice.model.dto.EmployeeOrdersGetRequest;
-import ru.redcollar.autoservice.model.dto.OrderListDto;
+import ru.redcollar.autoservicecommonlib.model.dto.OrderListDto;
 import ru.redcollar.autoservice.model.entities.EmployeeEntity;
 import org.springframework.stereotype.Component;
 
